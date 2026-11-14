@@ -255,6 +255,28 @@
             font-size: 14px;
         }
 
+        .agenda-vazia {
+            text-align: center;
+            padding: 35px 15px;
+            border: 1px dashed var(--borda);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--texto-suave);
+        }
+
+        .agenda-vazia .simbolo {
+            display: block;
+            color: var(--rosa);
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .agenda-vazia strong {
+            display: block;
+            color: var(--texto);
+            margin-bottom: 5px;
+        }
+
         .rodape {
             text-align: center;
             padding: 12px 20px 25px;
@@ -610,6 +632,33 @@
             const lista = document.getElementById("lista");
 
             lista.innerHTML = "";
+
+            if (agendamentos.length === 0) {
+
+                const vazio = document.createElement("div");
+
+                vazio.className = "agenda-vazia";
+
+                const simbolo = document.createElement("span");
+                simbolo.className = "simbolo";
+                simbolo.textContent = "♡";
+
+                const titulo = document.createElement("strong");
+                titulo.textContent = "Nenhum agendamento registrado ainda.";
+
+                const descricao = document.createElement("p");
+                descricao.textContent =
+                    "Quando você cadastrar um horário, ele aparecerá aqui.";
+
+                vazio.append(simbolo, titulo, descricao);
+
+                lista.appendChild(vazio);
+
+                document.getElementById("resultado").textContent =
+                    "Sua agenda está vazia no momento.";
+
+                return;
+            }
 
             agendamentos.forEach(item => {
 
