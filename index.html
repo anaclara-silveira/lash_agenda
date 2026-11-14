@@ -31,7 +31,6 @@
             min-height: 100vh;
             font-family: "DM Sans", Arial, sans-serif;
             color: var(--texto);
-
             background:
                 linear-gradient(rgba(15, 10, 13, 0.58),
                     rgba(15, 10, 13, 0.78)),
@@ -425,10 +424,10 @@
                             <h3>Dados do cliente</h3>
 
                             <label for="nome">Nome completo</label>
-                            <input id="nome" required placeholder="Digite o nome">
+                            <input id="nome" required autocomplete="name" placeholder="Digite o nome">
 
                             <label for="telefone">Telefone</label>
-                            <input id="telefone" required type="tel" placeholder="(00) 00000-0000">
+                            <input id="telefone" required type="tel" autocomplete="tel" placeholder="(00) 00000-0000">
 
                             <button type="submit">
                                 Salvar cliente
