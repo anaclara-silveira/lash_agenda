@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda Lash</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #faf5f6;
+            color: #382b32;
+        }
+
+        header {
+            background: #713f55;
+            color: white;
+            padding: 22px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        header p {
+            margin-bottom: 0;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        .tela {
+            display: none;
+        }
+
+        .tela.ativa {
+            display: block;
+        }
+
+        h2 {
+            color: #713f55;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            margin: 15px 0;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #00000012;
+        }
+
+        button {
+            background: #713f55;
+            color: white;
+            border: 0;
+            border-radius: 8px;
+            padding: 13px 18px;
+            min-height: 46px;
+            cursor: pointer;
+            font-size: 15px;
+            margin: 5px 5px 5px 0;
+        }
+
+        button:hover {
+            background: #512b3d;
+        }
+
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 3px solid #d18aa8;
+            outline-offset: 3px;
+        }
+
+        .secundario {
+            background: #eadde3;
+            color: #512b3d;
+        }
+
+        label {
+            display: block;
+            margin: 14px 0 6px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #a997a0;
+            border-radius: 7px;
+            font-size: 16px;
+            background: white;
+            color: #382b32;
+        }
+
+        .mensagem {
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 7px;
+            background: #f4e7ed;
+            color: #512b3d;
+        }
+
+        .item {
+            border-bottom: 1px solid #eadde3;
+            padding: 14px 0;
+        }
+
+        .item:last-child {
+            border: 0;
+        }
+
+        .pequeno {
+            color: #65545c;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                margin: 15px auto;
+                padding: 14px;
+            }
+
+            .card {
+                padding: 17px;
+            }
+
+            button {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Agenda Lash</h1>
+        <p>Organização de clientes e agendamentos</p>
+    </header>
+
+    <main>
+
+        <!-- TELA 1: MENU -->
+        <section id="menu" class="tela ativa">
+            <div class="card">
+                <h2>Área profissional</h2>
+                <p>Bem-vinda! Escolha o que deseja fazer.</p>
+                <p class="pequeno">Acesso demonstrativo do protótipo.</p>
+
+                <button onclick="abrir('cadastro')">Cadastrar cliente</button>
+                <button onclick="abrir('cadastro'); mostrarFormulario('agendamento')">
+                    Novo agendamento
+                </button>
+                <button onclick="abrir('agenda')">Consultar agenda</button>
+            </div>
+        </section>
+
+        <!-- TELA 2: CADASTROS -->
+        <section id="cadastro" class="tela">
+            <div class="card">
+                <h2>Cadastro e agendamento</h2>
+
+                <button class="secundario" onclick="mostrarFormulario('cliente')">
+                    Cadastrar cliente
+                </button>
+                <button class="secundario" onclick="mostrarFormulario('agendamento')">
+                    Novo agendamento
+                </button>
+
+                <form id="formCliente">
+                    <h3>Dados do cliente</h3>
+
+                    <label for="nome">Nome completo</label>
+                    <input id="nome" required placeholder="Digite o nome">
+
+                    <label for="telefone">Telefone</label>
+                    <input id="telefone" required type="tel" placeholder="(00) 00000-0000">
+
+                    <button type="submit">Salvar cliente</button>
+                </form>
+
+                <form id="formAgendamento" hidden>
+                    <h3>Novo agendamento</h3>
+
+                    <label for="cliente">Selecione o cliente</label>
+                    <select id="cliente" required></select>
+
+                    <label for="data">Data</label>
+                    <input id="data" type="date" required>
+
+                    <label for="horario">Horário</label>
+                    <input id="horario" type="time" required>
+
+                    <button type="submit">Salvar agendamento</button>
+                </form>
+
+                <div id="retorno" class="mensagem" role="status" aria-live="polite" hidden></div>
+                <button class="secundario" onclick="abrir('menu')">Voltar ao menu</button>
+            </div>
+        </section>
+
+        <!-- TELA 3: AGENDA -->
+        <section id="agenda" class="tela">
+            <div class="card">
+                <h2>Agenda de atendimentos</h2>
+                <p>Confira os horários registrados.</p>
+
+                <div id="lista"></div>
+
+                <div id="resultado" class="mensagem" role="status" aria-live="polite">
+                    Agendamentos carregados.
+                </div>
+
+                <button onclick="abrir('cadastro'); mostrarFormulario('agendamento')">
+                    Novo agendamento
+                </button>
+                <button class="secundario" onclick="abrir('menu')">
+                    Voltar ao menu
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        let clientes = [
+            { nome: "Marina Costa", telefone: "(31) 90000-0000" }
+        ];
+
+        let agendamentos = [
+            { cliente: "Marina Costa", data: "2026-11-20", horario: "14:00" }
+        ];
+
+        function abrir(tela) {
+            document.querySelectorAll(".tela").forEach(item => {
+                item.classList.remove("ativa");
+            });
+
+            document.getElementById(tela).classList.add("ativa");
+
+            if (tela === "agenda") atualizarAgenda();
+            if (tela === "cadastro") atualizarClientes();
+        }
+
+        function mostrarFormulario(tipo) {
+            document.getElementById("formCliente").hidden = tipo !== "cliente";
+            document.getElementById("formAgendamento").hidden = tipo !== "agendamento";
+            document.getElementById("retorno").hidden = true;
+            atualizarClientes();
+        }
+
+        function atualizarClientes() {
+            const campo = document.getElementById("cliente");
+            campo.innerHTML = "";
+
+            clientes.forEach(cliente => {
+                const opcao = document.createElement("option");
+                opcao.value = cliente.nome;
+                opcao.textContent = cliente.nome;
+                campo.appendChild(opcao);
+            });
+        }
+
+        document.getElementById("formCliente").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const nome = document.getElementById("nome").value.trim();
+            const telefone = document.getElementById("telefone").value.trim();
+
+            clientes.push({ nome, telefone });
+
+            this.reset();
+            mostrarMensagem("Cliente cadastrado com sucesso!");
+            atualizarClientes();
+        });
+
+        document.getElementById("formAgendamento").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const cliente = document.getElementById("cliente").value;
+            const data = document.getElementById("data").value;
+            const horario = document.getElementById("horario").value;
+
+            agendamentos.push({ cliente, data, horario });
+
+            this.reset();
+            mostrarMensagem("Agendamento registrado com sucesso!");
+        });
+
+        function mostrarMensagem(texto) {
+            const retorno = document.getElementById("retorno");
+            retorno.textContent = texto;
+            retorno.hidden = false;
+        }
+
+        function atualizarAgenda() {
+            const lista = document.getElementById("lista");
+            lista.innerHTML = "";
+
+            agendamentos.forEach(item => {
+                const dataFormatada = item.data.split("-").reverse().join("/");
+
+                const div = document.createElement("div");
+                div.className = "item";
+
+                const nome = document.createElement("strong");
+                nome.textContent = item.cliente;
+
+                const detalhe = document.createElement("p");
+                detalhe.textContent = dataFormatada + " às " + item.horario;
+
+                div.append(nome, detalhe);
+                lista.appendChild(div);
+            });
+
+            document.getElementById("resultado").textContent =
+                agendamentos.length + " agendamento(s) registrado(s).";
+        }
+
+        atualizarClientes();
+        atualizarAgenda();
+    </script>
+
+</body>
+
+</html>
