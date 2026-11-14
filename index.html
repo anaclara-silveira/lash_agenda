@@ -367,6 +367,7 @@
                 </div>
 
                 <div class="conteudo-boas-vindas">
+
                     <h2>Área profissional</h2>
 
                     <p>Bem-vinda! Escolha o que deseja fazer.</p>
@@ -391,9 +392,7 @@
 
                     </div>
                 </div>
-
             </div>
-
         </section>
 
         <!-- TELA 2: CADASTROS -->
@@ -470,7 +469,6 @@
                 </button>
 
             </div>
-
         </section>
 
         <!-- TELA 3: AGENDA -->
@@ -501,9 +499,7 @@
                     </button>
 
                 </div>
-
             </div>
-
         </section>
 
     </main>
@@ -512,8 +508,9 @@
         ♡ &nbsp; BELEZA EM CADA DETALHE &nbsp; ♡
     </footer>
 
-    <script>
+    <script src="logica.js"></script>
 
+    <script>
         let clientes = [
             { nome: "Marina Costa", telefone: "(31) 90000-0000" }
         ];
@@ -527,115 +524,82 @@
         ];
 
         function abrir(tela) {
-
             document.querySelectorAll(".tela").forEach(item => {
                 item.classList.remove("ativa");
             });
 
             document.getElementById(tela).classList.add("ativa");
 
-            if (tela === "agenda") {
-                atualizarAgenda();
-            }
-
-            if (tela === "cadastro") {
-                atualizarClientes();
-            }
+            if (tela === "agenda") atualizarAgenda();
+            if (tela === "cadastro") atualizarClientes();
         }
 
         function mostrarFormulario(tipo) {
-
-            document.getElementById("formCliente").hidden =
-                tipo !== "cliente";
-
-            document.getElementById("formAgendamento").hidden =
-                tipo !== "agendamento";
-
+            document.getElementById("formCliente").hidden = tipo !== "cliente";
+            document.getElementById("formAgendamento").hidden = tipo !== "agendamento";
             document.getElementById("retorno").hidden = true;
-
             atualizarClientes();
         }
 
         function atualizarClientes() {
-
             const campo = document.getElementById("cliente");
-
             campo.innerHTML = "";
 
             clientes.forEach(cliente => {
-
                 const opcao = document.createElement("option");
-
                 opcao.value = cliente.nome;
                 opcao.textContent = cliente.nome;
-
                 campo.appendChild(opcao);
-
             });
-
         }
 
-        document.getElementById("formCliente")
-            .addEventListener("submit", function (e) {
+        document.getElementById("formCliente").addEventListener("submit", function (e) {
+            e.preventDefault();
 
-                e.preventDefault();
+            const nome = document.getElementById("nome").value;
+            const telefone = document.getElementById("telefone").value;
 
-                const nome = document.getElementById("nome").value.trim();
-                const telefone = document.getElementById("telefone").value.trim();
-
-                clientes.push({
-                    nome,
-                    telefone
-                });
-
+            try {
+                clientes = AgendaLash.cadastrarCliente(clientes, nome, telefone);
                 this.reset();
-
                 mostrarMensagem("Cliente cadastrado com sucesso!");
-
                 atualizarClientes();
+            } catch (erro) {
+                mostrarMensagem(erro.message);
+            }
+        });
 
-            });
+        document.getElementById("formAgendamento").addEventListener("submit", function (e) {
+            e.preventDefault();
 
-        document.getElementById("formAgendamento")
-            .addEventListener("submit", function (e) {
+            const cliente = document.getElementById("cliente").value;
+            const data = document.getElementById("data").value;
+            const horario = document.getElementById("horario").value;
 
-                e.preventDefault();
-
-                const cliente = document.getElementById("cliente").value;
-                const data = document.getElementById("data").value;
-                const horario = document.getElementById("horario").value;
-
-                agendamentos.push({
-                    cliente,
-                    data,
-                    horario
-                });
+            try {
+                agendamentos = AgendaLash.cadastrarAgendamento(
+                    agendamentos, cliente, data, horario, clientes
+                );
 
                 this.reset();
-
                 mostrarMensagem("Agendamento registrado com sucesso!");
-
-            });
+            } catch (erro) {
+                mostrarMensagem(erro.message);
+            }
+        });
 
         function mostrarMensagem(texto) {
-
             const retorno = document.getElementById("retorno");
-
             retorno.textContent = texto;
             retorno.hidden = false;
-
         }
 
         function atualizarAgenda() {
-
             const lista = document.getElementById("lista");
-
             lista.innerHTML = "";
 
             if (agendamentos.length === 0) {
-
                 const vazio = document.createElement("div");
-
                 vazio.className = "agenda-vazia";
 
                 const simbolo = document.createElement("span");
@@ -646,11 +610,9 @@
                 titulo.textContent = "Nenhum agendamento registrado ainda.";
 
                 const descricao = document.createElement("p");
-                descricao.textContent =
-                    "Quando você cadastrar um horário, ele aparecerá aqui.";
+                descricao.textContent = "Quando você cadastrar um horário, ele aparecerá aqui.";
 
                 vazio.append(simbolo, titulo, descricao);
-
                 lista.appendChild(vazio);
 
                 document.getElementById("resultado").textContent =
@@ -659,42 +621,31 @@
                 return;
             }
 
-            agendamentos.forEach(item => {
+            const agendaFormatada = AgendaLash.consultarAgenda(agendamentos);
 
-                const dataFormatada =
-                    item.data.split("-").reverse().join("/");
-
+            agendaFormatada.forEach(item => {
                 const div = document.createElement("div");
-
                 div.className = "item";
 
                 const informacoes = document.createElement("div");
 
                 const nome = document.createElement("strong");
-
                 nome.textContent = item.cliente;
 
                 const detalhe = document.createElement("p");
-
-                detalhe.textContent =
-                    dataFormatada + " às " + item.horario;
+                detalhe.textContent = item.data + " às " + item.horario;
 
                 informacoes.append(nome, detalhe);
-
                 div.appendChild(informacoes);
-
                 lista.appendChild(div);
-
             });
 
             document.getElementById("resultado").textContent =
                 agendamentos.length + " agendamento(s) registrado(s).";
-
         }
 
         atualizarClientes();
         atualizarAgenda();
-
     </script>
 
 </body>
