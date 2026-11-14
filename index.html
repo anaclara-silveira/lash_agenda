@@ -6,37 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda Lash</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap"
+        rel="stylesheet">
+
     <style>
         * {
             box-sizing: border-box;
         }
 
+        :root {
+            --rosa: #f2a6b9;
+            --rosa-claro: #ffd4df;
+            --preto: #171316;
+            --painel: rgba(24, 18, 21, 0.91);
+            --borda: rgba(242, 166, 185, 0.55);
+            --texto: #fff7f9;
+            --texto-suave: #ddcbd1;
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #fff5f8;
-            color: #171316;
+            min-height: 100vh;
+            font-family: "DM Sans", Arial, sans-serif;
+            color: var(--texto);
+
+            background:
+                linear-gradient(rgba(15, 10, 13, 0.58),
+                    rgba(15, 10, 13, 0.78)),
+                url("studio-lash.jpg") center center / cover fixed,
+                #171316;
         }
 
         header {
-            background: #171316;
-            color: white;
-            padding: 22px;
             text-align: center;
+            padding: 35px 20px 15px;
         }
 
-        header h1 {
+        .marca {
+            font-family: "Great Vibes", cursive;
+            font-size: clamp(48px, 7vw, 78px);
+            color: var(--rosa);
             margin: 0;
+            font-weight: normal;
+            text-shadow: 0 2px 18px rgba(242, 166, 185, 0.2);
         }
 
         header p {
-            margin-bottom: 0;
+            margin: 5px 0 0;
+            color: var(--texto-suave);
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
         }
 
         main {
-            max-width: 850px;
-            margin: 35px auto;
-            padding: 20px;
+            width: min(1100px, 94%);
+            margin: 20px auto 35px;
         }
 
         .tela {
@@ -47,102 +74,254 @@
             display: block;
         }
 
-        h2 {
-            color: #171316;
+        .painel {
+            background: var(--painel);
+            border: 1px solid var(--borda);
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 22px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.28);
+            backdrop-filter: blur(12px);
         }
 
-        .card {
-            background: white;
-            padding: 22px;
-            margin: 15px 0;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px #00000012;
+        h2 {
+            margin-top: 0;
+            font-size: 25px;
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 18px;
+            margin-top: 0;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        .subtitulo {
+            color: var(--texto-suave);
+            font-size: 14px;
+        }
+
+        .boas-vindas {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            padding: 32px;
+        }
+
+        .icone-destaque {
+            min-width: 150px;
+            min-height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid var(--borda);
+            color: var(--rosa);
+            font-size: 65px;
+        }
+
+        .conteudo-boas-vindas {
+            flex: 1;
+        }
+
+        .acoes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
         }
 
         button {
-            background: #171316;
-            color: white;
-            border: 0;
-            border-radius: 8px;
-            padding: 13px 18px;
+            background: var(--rosa);
+            color: #21171b;
+            border: 1px solid var(--rosa);
+            border-radius: 30px;
+            padding: 13px 22px;
             min-height: 46px;
             cursor: pointer;
-            font-size: 15px;
-            margin: 5px 5px 5px 0;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.2s;
         }
 
         button:hover {
-            background: #3a2730;
+            background: var(--rosa-claro);
+            border-color: var(--rosa-claro);
+            transform: translateY(-1px);
         }
 
         button:focus-visible,
         input:focus-visible,
         select:focus-visible {
-            outline: 3px solid #e9a9bf;
+            outline: 3px solid var(--rosa-claro);
             outline-offset: 3px;
         }
 
         .secundario {
-            background: #f7dce5;
-            color: #171316;
+            background: transparent;
+            color: var(--texto);
+            border: 1px solid var(--rosa);
         }
 
         .secundario:hover {
-            background: #efc5d3;
+            background: rgba(242, 166, 185, 0.15);
+            color: white;
+        }
+
+        .area-cadastros {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+
+        .coluna+.coluna {
+            border-left: 1px solid var(--borda);
+            padding-left: 28px;
+        }
+
+        .botoes-formulario {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 24px;
         }
 
         label {
             display: block;
-            margin: 14px 0 6px;
-            font-weight: bold;
+            margin: 15px 0 7px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--texto);
         }
 
         input,
         select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #b99aa5;
-            border-radius: 7px;
-            font-size: 16px;
-            background: white;
-            color: #171316;
+            padding: 13px;
+            border: 1px solid rgba(242, 166, 185, 0.55);
+            border-radius: 9px;
+            font-size: 15px;
+            font-family: inherit;
+            background: rgba(255, 255, 255, 0.09);
+            color: white;
+        }
+
+        input::placeholder {
+            color: #d8c1c9;
+        }
+
+        select option {
+            background: #21191d;
+            color: white;
+        }
+
+        form button {
+            width: 100%;
+            margin-top: 20px;
         }
 
         .mensagem {
-            padding: 12px;
-            margin-top: 15px;
-            border-radius: 7px;
-            background: #fce8ef;
-            color: #3a2730;
-        }
-
-        .item {
-            border-bottom: 1px solid #f7dce5;
-            padding: 14px 0;
-        }
-
-        .item:last-child {
-            border: 0;
-        }
-
-        .pequeno {
-            color: #59464f;
+            padding: 13px;
+            margin-top: 18px;
+            border-radius: 9px;
+            background: rgba(242, 166, 185, 0.16);
+            border: 1px solid var(--borda);
+            color: var(--rosa-claro);
             font-size: 14px;
         }
 
-        @media (max-width: 600px) {
-            main {
-                margin: 15px auto;
-                padding: 14px;
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 17px;
+            margin: 12px 0;
+            border: 1px solid rgba(242, 166, 185, 0.25);
+            border-radius: 11px;
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .item strong {
+            color: var(--texto);
+        }
+
+        .item p {
+            margin: 4px 0 0;
+            color: var(--texto-suave);
+            font-size: 14px;
+        }
+
+        .rodape {
+            text-align: center;
+            padding: 12px 20px 25px;
+            color: var(--rosa-claro);
+            font-size: 12px;
+            letter-spacing: 4px;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                padding-top: 25px;
             }
 
-            .card {
-                padding: 17px;
+            header p {
+                letter-spacing: 2px;
+                font-size: 10px;
+            }
+
+            .boas-vindas {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 23px;
+            }
+
+            .icone-destaque {
+                min-height: auto;
+                min-width: auto;
+                border-right: 0;
+                border-bottom: 1px solid var(--borda);
+                width: 100%;
+                padding-bottom: 15px;
+                font-size: 42px;
+                justify-content: flex-start;
+            }
+
+            .area-cadastros {
+                grid-template-columns: 1fr;
+            }
+
+            .coluna+.coluna {
+                border-left: 0;
+                border-top: 1px solid var(--borda);
+                padding-left: 0;
+                padding-top: 25px;
+            }
+
+            .painel {
+                padding: 20px;
+            }
+
+            .acoes,
+            .botoes-formulario {
+                flex-direction: column;
             }
 
             button {
                 width: 100%;
-                margin: 5px 0;
+            }
+
+            .item {
+                align-items: flex-start;
+                flex-direction: column;
             }
         }
     </style>
@@ -151,80 +330,138 @@
 <body>
 
     <header>
-        <h1>Agenda Lash</h1>
+        <h1 class="marca">Agenda Lash</h1>
         <p>Organização de clientes e agendamentos</p>
     </header>
 
     <main>
 
-        <!-- TELA 1: MENU -->
+        <!-- TELA 1: MENU INICIAL -->
         <section id="menu" class="tela ativa">
-            <div class="card">
-                <h2>Área profissional</h2>
-                <p>Bem-vinda! Escolha o que deseja fazer.</p>
-                <p class="pequeno">Acesso demonstrativo do protótipo.</p>
 
-                <button onclick="abrir('cadastro')">Cadastrar cliente</button>
+            <div class="painel boas-vindas">
 
-                <button onclick="abrir('cadastro'); mostrarFormulario('agendamento')">
-                    Novo agendamento
-                </button>
+                <div class="icone-destaque">
+                    ♡
+                </div>
 
-                <button onclick="abrir('agenda')">Consultar agenda</button>
+                <div class="conteudo-boas-vindas">
+                    <h2>Área profissional</h2>
+
+                    <p>Bem-vinda! Escolha o que deseja fazer.</p>
+
+                    <p class="subtitulo">
+                        Acesso demonstrativo do protótipo.
+                    </p>
+
+                    <div class="acoes">
+
+                        <button onclick="abrir('cadastro'); mostrarFormulario('cliente')">
+                            Cadastrar cliente
+                        </button>
+
+                        <button class="secundario" onclick="abrir('cadastro'); mostrarFormulario('agendamento')">
+                            Novo agendamento
+                        </button>
+
+                        <button class="secundario" onclick="abrir('agenda')">
+                            Consultar agenda
+                        </button>
+
+                    </div>
+                </div>
+
             </div>
+
         </section>
 
         <!-- TELA 2: CADASTROS -->
         <section id="cadastro" class="tela">
-            <div class="card">
+
+            <div class="painel">
+
                 <h2>Cadastro e agendamento</h2>
 
-                <button class="secundario" onclick="mostrarFormulario('cliente')">
-                    Cadastrar cliente
+                <div class="botoes-formulario">
+
+                    <button class="secundario" onclick="mostrarFormulario('cliente')">
+                        Cadastrar cliente
+                    </button>
+
+                    <button class="secundario" onclick="mostrarFormulario('agendamento')">
+                        Novo agendamento
+                    </button>
+
+                </div>
+
+                <div class="area-cadastros">
+
+                    <div class="coluna">
+
+                        <form id="formCliente">
+
+                            <h3>Dados do cliente</h3>
+
+                            <label for="nome">Nome completo</label>
+                            <input id="nome" required placeholder="Digite o nome">
+
+                            <label for="telefone">Telefone</label>
+                            <input id="telefone" required type="tel" placeholder="(00) 00000-0000">
+
+                            <button type="submit">
+                                Salvar cliente
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                    <div class="coluna">
+
+                        <form id="formAgendamento" hidden>
+
+                            <h3>Novo agendamento</h3>
+
+                            <label for="cliente">Selecione o cliente</label>
+                            <select id="cliente" required></select>
+
+                            <label for="data">Data</label>
+                            <input id="data" type="date" required>
+
+                            <label for="horario">Horário</label>
+                            <input id="horario" type="time" required>
+
+                            <button type="submit">
+                                Salvar agendamento
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+                <div id="retorno" class="mensagem" role="status" aria-live="polite" hidden>
+                </div>
+
+                <button class="secundario" onclick="abrir('menu')">
+                    Voltar ao menu
                 </button>
 
-                <button class="secundario" onclick="mostrarFormulario('agendamento')">
-                    Novo agendamento
-                </button>
-
-                <form id="formCliente">
-                    <h3>Dados do cliente</h3>
-
-                    <label for="nome">Nome completo</label>
-                    <input id="nome" required placeholder="Digite o nome">
-
-                    <label for="telefone">Telefone</label>
-                    <input id="telefone" required type="tel" placeholder="(00) 00000-0000">
-
-                    <button type="submit">Salvar cliente</button>
-                </form>
-
-                <form id="formAgendamento" hidden>
-                    <h3>Novo agendamento</h3>
-
-                    <label for="cliente">Selecione o cliente</label>
-                    <select id="cliente" required></select>
-
-                    <label for="data">Data</label>
-                    <input id="data" type="date" required>
-
-                    <label for="horario">Horário</label>
-                    <input id="horario" type="time" required>
-
-                    <button type="submit">Salvar agendamento</button>
-                </form>
-
-                <div id="retorno" class="mensagem" role="status" aria-live="polite" hidden></div>
-
-                <button class="secundario" onclick="abrir('menu')">Voltar ao menu</button>
             </div>
+
         </section>
 
         <!-- TELA 3: AGENDA -->
         <section id="agenda" class="tela">
-            <div class="card">
+
+            <div class="painel">
+
                 <h2>Agenda de atendimentos</h2>
-                <p>Confira os horários registrados.</p>
+
+                <p class="subtitulo">
+                    Confira os horários registrados.
+                </p>
 
                 <div id="lista"></div>
 
@@ -232,115 +469,184 @@
                     Agendamentos carregados.
                 </div>
 
-                <button onclick="abrir('cadastro'); mostrarFormulario('agendamento')">
-                    Novo agendamento
-                </button>
+                <div class="acoes">
 
-                <button class="secundario" onclick="abrir('menu')">
-                    Voltar ao menu
-                </button>
+                    <button onclick="abrir('cadastro'); mostrarFormulario('agendamento')">
+                        Novo agendamento
+                    </button>
+
+                    <button class="secundario" onclick="abrir('menu')">
+                        Voltar ao menu
+                    </button>
+
+                </div>
+
             </div>
+
         </section>
 
     </main>
 
+    <footer class="rodape">
+        ♡ &nbsp; BELEZA EM CADA DETALHE &nbsp; ♡
+    </footer>
+
     <script>
+
         let clientes = [
             { nome: "Marina Costa", telefone: "(31) 90000-0000" }
         ];
 
         let agendamentos = [
-            { cliente: "Marina Costa", data: "2026-11-20", horario: "14:00" }
+            {
+                cliente: "Marina Costa",
+                data: "2026-11-20",
+                horario: "14:00"
+            }
         ];
 
         function abrir(tela) {
+
             document.querySelectorAll(".tela").forEach(item => {
                 item.classList.remove("ativa");
             });
 
             document.getElementById(tela).classList.add("ativa");
 
-            if (tela === "agenda") atualizarAgenda();
-            if (tela === "cadastro") atualizarClientes();
+            if (tela === "agenda") {
+                atualizarAgenda();
+            }
+
+            if (tela === "cadastro") {
+                atualizarClientes();
+            }
         }
 
         function mostrarFormulario(tipo) {
-            document.getElementById("formCliente").hidden = tipo !== "cliente";
-            document.getElementById("formAgendamento").hidden = tipo !== "agendamento";
+
+            document.getElementById("formCliente").hidden =
+                tipo !== "cliente";
+
+            document.getElementById("formAgendamento").hidden =
+                tipo !== "agendamento";
+
             document.getElementById("retorno").hidden = true;
+
             atualizarClientes();
         }
 
         function atualizarClientes() {
+
             const campo = document.getElementById("cliente");
+
             campo.innerHTML = "";
 
             clientes.forEach(cliente => {
+
                 const opcao = document.createElement("option");
+
                 opcao.value = cliente.nome;
                 opcao.textContent = cliente.nome;
+
                 campo.appendChild(opcao);
+
             });
+
         }
 
-        document.getElementById("formCliente").addEventListener("submit", function (e) {
-            e.preventDefault();
+        document.getElementById("formCliente")
+            .addEventListener("submit", function (e) {
 
-            const nome = document.getElementById("nome").value.trim();
-            const telefone = document.getElementById("telefone").value.trim();
+                e.preventDefault();
 
-            clientes.push({ nome, telefone });
+                const nome = document.getElementById("nome").value.trim();
+                const telefone = document.getElementById("telefone").value.trim();
 
-            this.reset();
-            mostrarMensagem("Cliente cadastrado com sucesso!");
-            atualizarClientes();
-        });
+                clientes.push({
+                    nome,
+                    telefone
+                });
 
-        document.getElementById("formAgendamento").addEventListener("submit", function (e) {
-            e.preventDefault();
+                this.reset();
 
-            const cliente = document.getElementById("cliente").value;
-            const data = document.getElementById("data").value;
-            const horario = document.getElementById("horario").value;
+                mostrarMensagem("Cliente cadastrado com sucesso!");
 
-            agendamentos.push({ cliente, data, horario });
+                atualizarClientes();
 
-            this.reset();
-            mostrarMensagem("Agendamento registrado com sucesso!");
-        });
+            });
+
+        document.getElementById("formAgendamento")
+            .addEventListener("submit", function (e) {
+
+                e.preventDefault();
+
+                const cliente = document.getElementById("cliente").value;
+                const data = document.getElementById("data").value;
+                const horario = document.getElementById("horario").value;
+
+                agendamentos.push({
+                    cliente,
+                    data,
+                    horario
+                });
+
+                this.reset();
+
+                mostrarMensagem("Agendamento registrado com sucesso!");
+
+            });
 
         function mostrarMensagem(texto) {
+
             const retorno = document.getElementById("retorno");
+
             retorno.textContent = texto;
             retorno.hidden = false;
+
         }
 
         function atualizarAgenda() {
+
             const lista = document.getElementById("lista");
+
             lista.innerHTML = "";
 
             agendamentos.forEach(item => {
-                const dataFormatada = item.data.split("-").reverse().join("/");
+
+                const dataFormatada =
+                    item.data.split("-").reverse().join("/");
 
                 const div = document.createElement("div");
+
                 div.className = "item";
 
+                const informacoes = document.createElement("div");
+
                 const nome = document.createElement("strong");
+
                 nome.textContent = item.cliente;
 
                 const detalhe = document.createElement("p");
-                detalhe.textContent = dataFormatada + " às " + item.horario;
 
-                div.append(nome, detalhe);
+                detalhe.textContent =
+                    dataFormatada + " às " + item.horario;
+
+                informacoes.append(nome, detalhe);
+
+                div.appendChild(informacoes);
+
                 lista.appendChild(div);
+
             });
 
             document.getElementById("resultado").textContent =
                 agendamentos.length + " agendamento(s) registrado(s).";
+
         }
 
         atualizarClientes();
         atualizarAgenda();
+
     </script>
 
 </body>
