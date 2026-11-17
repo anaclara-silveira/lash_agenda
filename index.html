@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
@@ -499,31 +500,34 @@
 
                 <div class="conteudo-boas-vindas">
 
-                    <h2>Área profissional</h2>
+                    <h2>Bem-vinda ao Agenda Lash</h2>
 
-                    <p>Bem-vinda! Escolha o que deseja fazer.</p>
-
-                    <p class="subtitulo">
-                        Acesso demonstrativo do protótipo.
+                    <p>
+                        Organize seus atendimentos de forma simples e prática.
+                        Cadastre suas clientes, registre novos horários e consulte
+                        sua agenda em um só lugar.
                     </p>
 
                     <div class="acoes">
 
-                        <button onclick="abrir('cadastro'); mostrarFormulario('cliente')">
+                        <button type="button" onclick="abrir('cadastro'); mostrarFormulario('cliente')">
                             Cadastrar cliente
                         </button>
 
-                        <button class="secundario" onclick="abrir('cadastro'); mostrarFormulario('agendamento')">
+                        <button type="button" onclick="abrir('cadastro'); mostrarFormulario('agendamento')">
                             Novo agendamento
                         </button>
 
-                        <button class="secundario" onclick="abrir('agenda')">
+                        <button type="button" class="secundario" onclick="abrir('agenda')">
                             Consultar agenda
                         </button>
 
                     </div>
+
                 </div>
+
             </div>
+
         </section>
 
         <!-- TELA 2: CADASTROS -->
@@ -531,20 +535,20 @@
 
             <div class="painel">
 
-                <h2>Cadastro e agendamento</h2>
+                <h2>Cadastros</h2>
 
                 <p class="subtitulo">
-                    Escolha uma operação e preencha os campos solicitados.
+                    Escolha o tipo de cadastro que deseja realizar.
                 </p>
 
                 <div class="botoes-formulario">
 
-                    <button onclick="mostrarFormulario('cliente')">
+                    <button type="button" onclick="mostrarFormulario('cliente')">
                         Cadastrar cliente
                     </button>
 
-                    <button class="secundario" onclick="mostrarFormulario('agendamento')">
-                        Novo agendamento
+                    <button type="button" class="secundario" onclick="mostrarFormulario('agendamento')">
+                        Registrar agendamento
                     </button>
 
                 </div>
@@ -553,15 +557,19 @@
 
                     <div class="coluna">
 
-                        <form id="formCliente">
+                        <form id="formCliente" hidden>
 
-                            <h3>Dados do cliente</h3>
+                            <h3>Cadastro de cliente</h3>
 
-                            <label for="nome">Nome completo</label>
-                            <input id="nome" required autocomplete="name" placeholder="Digite o nome completo">
+                            <p class="subtitulo">
+                                Informe os dados da cliente para realizar o cadastro.
+                            </p>
+
+                            <label for="nome">Nome da cliente</label>
+                            <input type="text" id="nome" name="nome" placeholder="Digite o nome completo" required>
 
                             <label for="telefone">Telefone</label>
-                            <input id="telefone" required type="tel" autocomplete="tel" placeholder="(00) 00000-0000">
+                            <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
 
                             <button type="submit">
                                 Salvar cliente
@@ -577,14 +585,20 @@
 
                             <h3>Novo agendamento</h3>
 
-                            <label for="cliente">Selecione o cliente</label>
-                            <select id="cliente" required></select>
+                            <p class="subtitulo">
+                                Selecione a cliente e informe a data e o horário do atendimento.
+                            </p>
+
+                            <label for="cliente">Cliente</label>
+                            <select id="cliente" name="cliente" required>
+                                <option value="">Selecione uma cliente</option>
+                            </select>
 
                             <label for="data">Data do atendimento</label>
-                            <input id="data" type="date" required>
+                            <input type="date" id="data" name="data" required>
 
-                            <label for="horario">Horário do atendimento</label>
-                            <input id="horario" type="time" required>
+                            <label for="horario">Horário</label>
+                            <input type="time" id="horario" name="horario" required>
 
                             <button type="submit">
                                 Salvar agendamento
@@ -596,45 +610,37 @@
 
                 </div>
 
-                <div id="retorno" class="mensagem" role="status" aria-live="polite" hidden>
-                </div>
+                <div id="retorno" class="mensagem" role="status" aria-live="polite" hidden></div>
 
-                <button class="secundario" onclick="abrir('menu')">
+                <button type="button" class="secundario" onclick="abrir('menu')">
                     Voltar ao menu
                 </button>
 
             </div>
+
         </section>
 
-        <!-- TELA 3: AGENDA -->
+        <!-- TELA 3: CONSULTA DA AGENDA -->
         <section id="agenda" class="tela">
 
             <div class="painel">
 
-                <h2>Agenda de atendimentos</h2>
+                <h2>Minha agenda</h2>
 
                 <p class="subtitulo">
-                    Confira os clientes, as datas e os horários registrados.
+                    Consulte os atendimentos registrados.
                 </p>
+
+                <p id="resultado" class="subtitulo" aria-live="polite"></p>
 
                 <div id="lista" class="lista-agenda"></div>
 
-                <div id="resultado" class="mensagem" role="status" aria-live="polite">
-                    Agendamentos carregados.
-                </div>
+                <button type="button" class="secundario" onclick="abrir('menu')">
+                    Voltar ao menu
+                </button>
 
-                <div class="acoes">
-
-                    <button onclick="abrir('cadastro'); mostrarFormulario('agendamento')">
-                        Novo agendamento
-                    </button>
-
-                    <button class="secundario" onclick="abrir('menu')">
-                        Voltar ao menu
-                    </button>
-
-                </div>
             </div>
+
         </section>
 
     </main>
@@ -666,18 +672,18 @@
                 zoomAtual + "%";
         }
 
-        /* DADOS DE DEMONSTRAÇÃO */
-        let clientes = [
+        /* CARREGAMENTO DOS DADOS SALVOS */
+        let clientes = AgendaLash.carregarClientes([
             { nome: "Marina Costa", telefone: "(31) 90000-0000" }
-        ];
+        ]);
 
-        let agendamentos = [
+        let agendamentos = AgendaLash.carregarAgendamentos([
             {
                 cliente: "Marina Costa",
                 data: "2026-11-20",
                 horario: "14:00"
             }
-        ];
+        ]);
 
         /* NAVEGAÇÃO ENTRE TELAS */
         function abrir(tela) {
@@ -731,6 +737,7 @@
 
             try {
                 clientes = AgendaLash.cadastrarCliente(clientes, nome, telefone);
+                AgendaLash.salvarClientes(clientes);
 
                 this.reset();
 
@@ -754,6 +761,7 @@
                 agendamentos = AgendaLash.cadastrarAgendamento(
                     agendamentos, cliente, data, horario, clientes
                 );
+                AgendaLash.salvarAgendamentos(agendamentos);
 
                 this.reset();
 

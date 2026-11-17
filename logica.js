@@ -1,5 +1,45 @@
 
 (function (global) {
+    const CHAVE_CLIENTES = "agendaLash_clientes";
+    const CHAVE_AGENDAMENTOS = "agendaLash_agendamentos";
+
+    function carregarDados(chave, dadosIniciais) {
+        if (typeof localStorage === "undefined") {
+            return dadosIniciais;
+        }
+
+        try {
+            const dadosSalvos = localStorage.getItem(chave);
+            return dadosSalvos === null
+                ? dadosIniciais
+                : JSON.parse(dadosSalvos);
+        } catch {
+            return dadosIniciais;
+        }
+    }
+
+    function salvarDados(chave, dados) {
+        if (typeof localStorage !== "undefined") {
+            localStorage.setItem(chave, JSON.stringify(dados));
+        }
+    }
+
+    function carregarClientes(dadosIniciais = []) {
+        return carregarDados(CHAVE_CLIENTES, dadosIniciais);
+    }
+
+    function salvarClientes(clientes) {
+        salvarDados(CHAVE_CLIENTES, clientes);
+    }
+
+    function carregarAgendamentos(dadosIniciais = []) {
+        return carregarDados(CHAVE_AGENDAMENTOS, dadosIniciais);
+    }
+
+    function salvarAgendamentos(agendamentos) {
+        salvarDados(CHAVE_AGENDAMENTOS, agendamentos);
+    }
+
     function cadastrarCliente(clientes, nome, telefone) {
         nome = nome.trim();
         telefone = telefone.trim();
@@ -40,6 +80,10 @@
     }
 
     const logica = {
+        carregarClientes,
+        salvarClientes,
+        carregarAgendamentos,
+        salvarAgendamentos,
         cadastrarCliente,
         cadastrarAgendamento,
         formatarData,

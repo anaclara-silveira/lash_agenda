@@ -6,7 +6,11 @@ const {
     cadastrarCliente,
     cadastrarAgendamento,
     formatarData,
-    consultarAgenda
+    consultarAgenda,
+    carregarClientes,
+    salvarClientes,
+    carregarAgendamentos,
+    salvarAgendamentos
 } = require("./logica.js");
 
 test("Deve cadastrar um cliente corretamente", () => {
@@ -91,4 +95,62 @@ test("Deve permitir o fluxo completo de cadastro e agendamento", () => {
     assert.equal(agendamentos.length, 1);
     assert.equal(agenda[0].cliente, "Marina Costa");
     assert.equal(agenda[0].horario, "14:00");
+});
+
+test("Deve salvar e carregar clientes e agendamentos no LocalStorage", () => {
+    const armazenamento = new Map();
+
+    const localStorageOriginal = Object.getOwnPropertyDescriptor(
+        globalThis,
+        "localStorage"
+    );
+
+    Object.defineProperty(globalThis, "localStorage", {
+        configurable: true,
+        value: {
+            getItem(chave) {
+                return armazenamento.has(chave)
+                    ? armazenamento.get(chave)
+                    : null;
+            },
+
+            setItem(chave, valor) {
+                armazenamento.set(chave, String(valor));
+            }
+        }
+    });
+
+    try {
+        const clientes = [
+            { nome: "Marina Costa", telefone: "(31) 90000-0000" }
+        ];
+
+        const agendamentos = [
+            {
+                cliente: "Marina Costa",
+                data: "2026-11-20",
+                horario: "14:00"
+            }
+        ];
+
+        salvarClientes(clientes);
+        salvarAgendamentos(agendamentos);
+
+        const clientesSalvos = carregarClientes();
+        const agendamentosSalvos = carregarAgendamentos();
+
+        assert.deepEqual(clientesSalvos, clientes);
+        assert.deepEqual(agendamentosSalvos, agendamentos);
+
+    } finally {
+        if (localStorageOriginal) {
+            Object.defineProperty(
+                globalThis,
+                "localStorage",
+                localStorageOriginal
+            );
+        } else {
+            delete globalThis.localStorage;
+        }
+    }
 });
