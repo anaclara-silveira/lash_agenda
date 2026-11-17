@@ -20,7 +20,7 @@
             --rosa: #f2a6b9;
             --rosa-claro: #ffd4df;
             --preto: #171316;
-            --painel: rgba(24, 18, 21, 0.91);
+            --painel: rgba(24, 18, 21, 0.93);
             --borda: rgba(242, 166, 185, 0.55);
             --texto: #fff7f9;
             --texto-suave: #ddcbd1;
@@ -38,9 +38,36 @@
                 #171316;
         }
 
+        /* ACESSIBILIDADE */
+        .acessibilidade {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 5%;
+            color: var(--texto);
+            font-size: 14px;
+        }
+
+        .acessibilidade button {
+            background: var(--rosa);
+            color: var(--preto);
+            border: 1px solid var(--rosa);
+            border-radius: 8px;
+            padding: 8px 14px;
+            min-width: 48px;
+            min-height: 44px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .acessibilidade button:hover {
+            background: var(--rosa-claro);
+        }
+
         header {
             text-align: center;
-            padding: 35px 20px 15px;
+            padding: 25px 20px 15px;
         }
 
         .marca {
@@ -77,7 +104,7 @@
             background: var(--painel);
             border: 1px solid var(--borda);
             border-radius: 18px;
-            padding: 28px;
+            padding: 30px;
             margin-bottom: 22px;
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.28);
             backdrop-filter: blur(12px);
@@ -90,8 +117,9 @@
         }
 
         h3 {
-            font-size: 18px;
+            font-size: 19px;
             margin-top: 0;
+            color: var(--rosa-claro);
         }
 
         p {
@@ -103,11 +131,12 @@
             font-size: 14px;
         }
 
+        /* MENU INICIAL */
         .boas-vindas {
             display: flex;
             align-items: center;
             gap: 30px;
-            padding: 32px;
+            padding: 35px;
         }
 
         .icone-destaque {
@@ -128,28 +157,28 @@
         .acoes {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 20px;
+            gap: 14px;
+            margin-top: 24px;
         }
 
         button {
             background: var(--rosa);
             color: #21171b;
             border: 1px solid var(--rosa);
-            border-radius: 30px;
-            padding: 13px 22px;
-            min-height: 46px;
+            border-radius: 12px;
+            padding: 14px 22px;
+            min-height: 48px;
             cursor: pointer;
             font-family: inherit;
             font-size: 14px;
             font-weight: 700;
-            transition: 0.2s;
+            transition: background 0.2s, border-color 0.2s, transform 0.2s;
         }
 
         button:hover {
             background: var(--rosa-claro);
             border-color: var(--rosa-claro);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
         }
 
         button:focus-visible,
@@ -157,6 +186,24 @@
         select:focus-visible {
             outline: 3px solid var(--rosa-claro);
             outline-offset: 3px;
+        }
+
+        .acoes button {
+            flex: 1;
+            min-width: 180px;
+            font-size: 14px;
+            padding: 15px 18px;
+        }
+
+        .acoes .secundario {
+            background: rgba(242, 166, 185, 0.13);
+            color: var(--rosa-claro);
+            border: 1px solid var(--rosa);
+        }
+
+        .acoes .secundario:hover {
+            background: rgba(242, 166, 185, 0.28);
+            color: white;
         }
 
         .secundario {
@@ -170,42 +217,72 @@
             color: white;
         }
 
-        .area-cadastros {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 28px;
-        }
-
-        .coluna+.coluna {
-            border-left: 1px solid var(--borda);
-            padding-left: 28px;
-        }
-
+        /* FORMULÁRIOS */
         .botoes-formulario {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 24px;
+            gap: 12px;
+            margin: 22px 0 28px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid var(--borda);
+        }
+
+        .botoes-formulario button {
+            min-width: 190px;
+        }
+
+        .botoes-formulario button:not(.secundario) {
+            box-shadow: 0 4px 14px rgba(242, 166, 185, 0.18);
+        }
+
+        .area-cadastros {
+            display: block;
+        }
+
+        .coluna {
+            width: 100%;
+        }
+
+        .coluna+.coluna {
+            border: 0;
+            padding: 0;
+        }
+
+        form:not([hidden]) {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 25px;
+            border: 1px solid rgba(242, 166, 185, 0.3);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.035);
         }
 
         label {
             display: block;
-            margin: 15px 0 7px;
+            margin: 20px 0 9px;
             font-size: 14px;
-            font-weight: 600;
-            color: var(--texto);
+            font-weight: 700;
+            color: var(--rosa-claro);
         }
 
         input,
         select {
             width: 100%;
-            padding: 13px;
-            border: 1px solid rgba(242, 166, 185, 0.55);
+            min-height: 48px;
+            padding: 13px 15px;
+            border: 1px solid rgba(242, 166, 185, 0.65);
             border-radius: 9px;
             font-size: 15px;
             font-family: inherit;
             background: rgba(255, 255, 255, 0.09);
             color: white;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--rosa-claro);
+            background: rgba(255, 255, 255, 0.13);
         }
 
         input::placeholder {
@@ -219,39 +296,74 @@
 
         form button {
             width: 100%;
-            margin-top: 20px;
+            margin-top: 28px;
+            min-height: 50px;
+            font-size: 15px;
         }
 
         .mensagem {
-            padding: 13px;
-            margin-top: 18px;
+            padding: 15px;
+            margin-top: 20px;
             border-radius: 9px;
             background: rgba(242, 166, 185, 0.16);
             border: 1px solid var(--borda);
             color: var(--rosa-claro);
             font-size: 14px;
+            line-height: 1.5;
+        }
+
+        #cadastro>.painel>.secundario {
+            margin-top: 22px;
+        }
+
+        /* AGENDA */
+        .lista-agenda {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 25px;
         }
 
         .item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 12px;
-            padding: 17px;
-            margin: 12px 0;
-            border: 1px solid rgba(242, 166, 185, 0.25);
-            border-radius: 11px;
+            gap: 18px;
+            padding: 20px;
+            margin: 0;
+            border: 1px solid rgba(242, 166, 185, 0.4);
+            border-left: 5px solid var(--rosa);
+            border-radius: 12px;
             background: rgba(255, 255, 255, 0.07);
+            transition: background 0.2s;
+        }
+
+        .item:hover {
+            background: rgba(242, 166, 185, 0.11);
         }
 
         .item strong {
+            display: block;
             color: var(--texto);
+            font-size: 16px;
+            margin-bottom: 7px;
         }
 
         .item p {
-            margin: 4px 0 0;
+            margin: 0;
             color: var(--texto-suave);
             font-size: 14px;
+        }
+
+        .item-horario {
+            display: inline-block;
+            padding: 9px 13px;
+            border-radius: 8px;
+            background: rgba(242, 166, 185, 0.17);
+            color: var(--rosa-claro);
+            font-weight: 700;
+            font-size: 14px;
+            white-space: nowrap;
         }
 
         .agenda-vazia {
@@ -298,6 +410,11 @@
                 font-size: 10px;
             }
 
+            .acessibilidade {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
             .boas-vindas {
                 flex-direction: column;
                 align-items: flex-start;
@@ -316,17 +433,6 @@
                 justify-content: flex-start;
             }
 
-            .area-cadastros {
-                grid-template-columns: 1fr;
-            }
-
-            .coluna+.coluna {
-                border-left: 0;
-                border-top: 1px solid var(--borda);
-                padding-left: 0;
-                padding-top: 25px;
-            }
-
             .painel {
                 padding: 20px;
             }
@@ -336,19 +442,44 @@
                 flex-direction: column;
             }
 
-            button {
+            .acoes button,
+            .botoes-formulario button {
                 width: 100%;
+                min-width: 100%;
+            }
+
+            form:not([hidden]) {
+                padding: 18px;
             }
 
             .item {
                 align-items: flex-start;
                 flex-direction: column;
             }
+
+            .item-horario {
+                align-self: flex-start;
+            }
         }
     </style>
 </head>
 
 <body>
+
+    <!-- CONTROLES DE ACESSIBILIDADE -->
+    <div class="acessibilidade" aria-label="Controles de tamanho do texto">
+        <span>Acessibilidade:</span>
+
+        <button type="button" onclick="alterarZoom(10)" aria-label="Aumentar o tamanho da interface">
+            A+
+        </button>
+
+        <button type="button" onclick="alterarZoom(-10)" aria-label="Diminuir o tamanho da interface">
+            A−
+        </button>
+
+        <span id="nivelZoom" role="status" aria-live="polite">100%</span>
+    </div>
 
     <header>
         <h1 class="marca">Agenda Lash</h1>
@@ -402,9 +533,13 @@
 
                 <h2>Cadastro e agendamento</h2>
 
+                <p class="subtitulo">
+                    Escolha uma operação e preencha os campos solicitados.
+                </p>
+
                 <div class="botoes-formulario">
 
-                    <button class="secundario" onclick="mostrarFormulario('cliente')">
+                    <button onclick="mostrarFormulario('cliente')">
                         Cadastrar cliente
                     </button>
 
@@ -423,7 +558,7 @@
                             <h3>Dados do cliente</h3>
 
                             <label for="nome">Nome completo</label>
-                            <input id="nome" required autocomplete="name" placeholder="Digite o nome">
+                            <input id="nome" required autocomplete="name" placeholder="Digite o nome completo">
 
                             <label for="telefone">Telefone</label>
                             <input id="telefone" required type="tel" autocomplete="tel" placeholder="(00) 00000-0000">
@@ -445,10 +580,10 @@
                             <label for="cliente">Selecione o cliente</label>
                             <select id="cliente" required></select>
 
-                            <label for="data">Data</label>
+                            <label for="data">Data do atendimento</label>
                             <input id="data" type="date" required>
 
-                            <label for="horario">Horário</label>
+                            <label for="horario">Horário do atendimento</label>
                             <input id="horario" type="time" required>
 
                             <button type="submit">
@@ -479,10 +614,10 @@
                 <h2>Agenda de atendimentos</h2>
 
                 <p class="subtitulo">
-                    Confira os horários registrados.
+                    Confira os clientes, as datas e os horários registrados.
                 </p>
 
-                <div id="lista"></div>
+                <div id="lista" class="lista-agenda"></div>
 
                 <div id="resultado" class="mensagem" role="status" aria-live="polite">
                     Agendamentos carregados.
@@ -511,6 +646,27 @@
     <script src="logica.js"></script>
 
     <script>
+        /* CONTROLE DE ACESSIBILIDADE */
+        let zoomAtual = 100;
+
+        function alterarZoom(valor) {
+            zoomAtual += valor;
+
+            if (zoomAtual > 140) {
+                zoomAtual = 140;
+            }
+
+            if (zoomAtual < 80) {
+                zoomAtual = 80;
+            }
+
+            document.body.style.zoom = zoomAtual + "%";
+
+            document.getElementById("nivelZoom").textContent =
+                zoomAtual + "%";
+        }
+
+        /* DADOS DE DEMONSTRAÇÃO */
         let clientes = [
             { nome: "Marina Costa", telefone: "(31) 90000-0000" }
         ];
@@ -523,6 +679,7 @@
             }
         ];
 
+        /* NAVEGAÇÃO ENTRE TELAS */
         function abrir(tela) {
             document.querySelectorAll(".tela").forEach(item => {
                 item.classList.remove("ativa");
@@ -534,6 +691,7 @@
             if (tela === "cadastro") atualizarClientes();
         }
 
+        /* SELEÇÃO DO FORMULÁRIO */
         function mostrarFormulario(tipo) {
             document.getElementById("formCliente").hidden = tipo !== "cliente";
             document.getElementById("formAgendamento").hidden = tipo !== "agendamento";
@@ -541,9 +699,20 @@
             atualizarClientes();
         }
 
+        /* ATUALIZAÇÃO DA LISTA DE CLIENTES */
         function atualizarClientes() {
             const campo = document.getElementById("cliente");
             campo.innerHTML = "";
+
+            if (clientes.length === 0) {
+                const opcao = document.createElement("option");
+                opcao.value = "";
+                opcao.textContent = "Cadastre um cliente primeiro";
+                opcao.disabled = true;
+                opcao.selected = true;
+                campo.appendChild(opcao);
+                return;
+            }
 
             clientes.forEach(cliente => {
                 const opcao = document.createElement("option");
@@ -553,6 +722,7 @@
             });
         }
 
+        /* CADASTRO DE CLIENTE */
         document.getElementById("formCliente").addEventListener("submit", function (e) {
             e.preventDefault();
 
@@ -561,14 +731,18 @@
 
             try {
                 clientes = AgendaLash.cadastrarCliente(clientes, nome, telefone);
+
                 this.reset();
+
                 mostrarMensagem("Cliente cadastrado com sucesso!");
                 atualizarClientes();
+
             } catch (erro) {
                 mostrarMensagem(erro.message);
             }
         });
 
+        /* CADASTRO DE AGENDAMENTO */
         document.getElementById("formAgendamento").addEventListener("submit", function (e) {
             e.preventDefault();
 
@@ -582,18 +756,22 @@
                 );
 
                 this.reset();
+
                 mostrarMensagem("Agendamento registrado com sucesso!");
+
             } catch (erro) {
                 mostrarMensagem(erro.message);
             }
         });
 
+        /* MENSAGENS DE RETORNO */
         function mostrarMensagem(texto) {
             const retorno = document.getElementById("retorno");
             retorno.textContent = texto;
             retorno.hidden = false;
         }
 
+        /* CONSULTA E ORGANIZAÇÃO DA AGENDA */
         function atualizarAgenda() {
             const lista = document.getElementById("lista");
             lista.innerHTML = "";
@@ -610,7 +788,8 @@
                 titulo.textContent = "Nenhum agendamento registrado ainda.";
 
                 const descricao = document.createElement("p");
-                descricao.textContent = "Quando você cadastrar um horário, ele aparecerá aqui.";
+                descricao.textContent =
+                    "Quando você cadastrar um horário, ele aparecerá aqui.";
 
                 vazio.append(simbolo, titulo, descricao);
                 lista.appendChild(vazio);
@@ -633,10 +812,14 @@
                 nome.textContent = item.cliente;
 
                 const detalhe = document.createElement("p");
-                detalhe.textContent = item.data + " às " + item.horario;
+                detalhe.textContent = "Data do atendimento: " + item.data;
+
+                const horario = document.createElement("span");
+                horario.className = "item-horario";
+                horario.textContent = "Horário: " + item.horario;
 
                 informacoes.append(nome, detalhe);
-                div.appendChild(informacoes);
+                div.append(informacoes, horario);
                 lista.appendChild(div);
             });
 
@@ -644,6 +827,7 @@
                 agendamentos.length + " agendamento(s) registrado(s).";
         }
 
+        /* CARREGAMENTO INICIAL */
         atualizarClientes();
         atualizarAgenda();
     </script>
