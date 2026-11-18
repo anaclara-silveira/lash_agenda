@@ -1,0 +1,25 @@
+
+name: Monitoramento - Agenda Lash
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  verificar-site:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verificar disponibilidade do Agenda Lash
+        run: |
+          STATUS=$(curl -L -s -o /dev/null -w "%{http_code}" --max-time 30 https://anaclara-silveira.github.io/lash_agenda/)
+
+          echo "Código HTTP recebido: $STATUS"
+
+          if [ "$STATUS" -lt 200 ] || [ "$STATUS" -ge 400 ]; then
+            echo "ERRO: Agenda Lash está indisponível."
+            exit 1
+          fi
+
+          echo "Agenda Lash está disponível."
